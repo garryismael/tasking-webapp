@@ -71,6 +71,25 @@ export const PersonTable = ({ persons }: PersonTableProps) => {
     setPage(1);
   }, []);
 
+  const getFemale = React.useCallback(() => {
+    return persons.filter(
+      (person) =>
+        person.sex.toUpperCase() === "F" ||
+        person.sex.toLowerCase() === "female"
+    ).length;
+  }, [persons]);
+
+  const getMale = React.useCallback(() => {
+    return persons.filter(
+      (person) =>
+        person.sex.toUpperCase() === "M" || person.sex.toLowerCase() === "male"
+    ).length;
+  }, [persons]);
+
+  const count = React.useCallback(() => {
+    return persons.length;
+  }, [persons]);
+
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-wrap justify-between">
@@ -99,16 +118,23 @@ export const PersonTable = ({ persons }: PersonTableProps) => {
         isStriped
         aria-label="Person Table"
         bottomContent={
-          <div className="flex w-full justify-center">
-            <Pagination
-              isCompact
-              showControls
-              showShadow
-              color="secondary"
-              page={page}
-              total={pages}
-              onChange={(page) => setPage(page)}
-            />
+          <div>
+            <div>
+              <p>Total: {count()}</p>
+              <p>Female: {getFemale()}</p>
+              <p>Male: {getMale()}</p>
+            </div>
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="secondary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
           </div>
         }
       >
