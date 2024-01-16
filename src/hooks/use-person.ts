@@ -66,6 +66,7 @@ export const useDeletePerson = (id: string) => {
   const handleDelete = async () => {
     setLoading(true);
     await deletePerson(id);
+    handleClose();
     setLoading(false);
     toast.success("Person Deleted Successfully!", {
       position: "bottom-right",
