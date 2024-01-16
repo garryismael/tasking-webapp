@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, create .env file and add """NEXT_PUBLIC_API_URL=http://localhost:8000"" (change if your backend runs on other port) to your file and then run the development server:
 
 ```bash
 npm run dev
