@@ -8,7 +8,7 @@ export const getPersons = async () => {
 };
 
 export const addPerson = async (data: PersonRequest) => {
-  const response = await http.post<Person>(PERSON_PATH);
+  const response = await http.post<Person>(PERSON_PATH, data);
   return response.data;
 };
 
@@ -18,6 +18,6 @@ export const editPerson = async (id: string, data: PersonRequest) => {
 };
 
 export const deletePerson = async (id: string) => {
-  const response = await http.put<void>(`${PERSON_PATH}/${id}`);
+  const response = await http.delete<void>(`${PERSON_PATH}/${id}`);
   return response.data;
 };

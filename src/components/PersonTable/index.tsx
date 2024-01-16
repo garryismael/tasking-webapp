@@ -15,6 +15,7 @@ import {
 import React, { useMemo, useState } from "react";
 import PersonRenderCell from "./PersonRenderCell";
 import { SearchIcon } from "../icons/SearchIcon";
+import AddPerson from "./AddPerson";
 
 export type PersonTableProps = {
   persons: Person[];
@@ -32,14 +33,24 @@ export const PersonTable = ({ persons }: PersonTableProps) => {
     let filteredPersons = [...persons];
 
     if (hasSearchFilter) {
-      filteredPersons = filteredPersons.filter((user) =>
-        user.lastName.toLowerCase().includes(filterValue.toLowerCase())
-      );
+      filteredPersons = filteredPersons.filter((user) => {
+        let exists = false;
+
+        if (user.username.toLowerCase().includes(filterValue.toLowerCase())) {
+          exists = true;
+        } else if (
+          user.lastName.toLowerCase().includes(filterValue.toLowerCase())
+        ) {
+          exists = true;
+        }
+
+        return exists;
+      });
     }
 
     return filteredPersons;
   }, [persons, hasSearchFilter, filterValue]);
-  
+
   const data = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -62,17 +73,20 @@ export const PersonTable = ({ persons }: PersonTableProps) => {
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <Input
-            isClearable
-            className="w-full sm:max-w-[44%]"
-            placeholder="Search by last name..."
-            startContent={<SearchIcon />}
-            value={filterValue}
-            onClear={() => onClear()}
-            onValueChange={onSearchChange}
-          />
+      <div className="flex flex-wrap justify-between">
+        <AddPerson />
+        <div className="flex flex-col gap-4 w-1/2 ">
+          <div className="flex justify-between gap-3 items-end">
+            <Input
+              isClearable
+              className="w-full sm:max-w-[44%]"
+              placeholder="Search by last name..."
+              startContent={<SearchIcon />}
+              value={filterValue}
+              onClear={() => onClear()}
+              onValueChange={onSearchChange}
+            />
+          </div>
         </div>
       </div>
     );

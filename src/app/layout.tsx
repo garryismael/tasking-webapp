@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
 import ToastProvider from "@/components/ToastProvider";
+import type { Metadata } from "next";
+import 'react-toastify/dist/ReactToastify.css';
 import NextUIWrapper from "./NextUIWrapper";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Task App",

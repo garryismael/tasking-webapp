@@ -4,8 +4,10 @@ import { Person, PersonRequest } from "@/models/person";
 import { addPerson, deletePerson, editPerson } from "@/services/person";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { useRouter } from 'next/navigation'
 
 export const usePersonForm = () => {
+  const router = useRouter()
   const { show, loading, setLoading, handleClose, handleOpen } = useFormModal();
   const formik = useFormik<PersonRequest>({
     initialValues: {
@@ -23,6 +25,7 @@ export const usePersonForm = () => {
         position: "bottom-right",
         toastId: "create-person",
       });
+      router.refresh();
     },
   });
 
@@ -30,6 +33,7 @@ export const usePersonForm = () => {
 };
 
 export const useEditPerson = (person: Person) => {
+  const router = useRouter()
   const { show, loading, setLoading, handleClose, handleOpen } = useFormModal();
   const [id] = useState(person.id);
   const formik = useFormik<PersonRequest>({
@@ -48,6 +52,7 @@ export const useEditPerson = (person: Person) => {
         position: "bottom-right",
         toastId: "edit-person",
       });
+      router.refresh();
     },
   });
 
@@ -55,6 +60,7 @@ export const useEditPerson = (person: Person) => {
 };
 
 export const useDeletePerson = (id: string) => {
+  const router = useRouter()
   const { show, loading, setLoading, handleClose, handleOpen } = useFormModal();
 
   const handleDelete = async () => {
@@ -65,6 +71,7 @@ export const useDeletePerson = (id: string) => {
       position: "bottom-right",
       toastId: "delete-person",
     });
+    router.refresh();
   };
 
   return { show, loading, handleOpen, handleClose, handleDelete };

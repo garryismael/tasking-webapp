@@ -1,31 +1,25 @@
-import { useEditPerson } from "@/hooks/use-person";
-import { Person } from "@/models/person";
+import { usePersonForm } from "@/hooks/use-person";
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
 } from "@nextui-org/react";
-import { EditIcon } from "../icons/EditIcon";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaPlus } from "react-icons/fa";
 
-type Props = {
-  person: Person;
-};
-
-const EditPerson = ({ person }: Props) => {
+const AddPerson = () => {
   const { formik, show, loading, handleOpen, handleClose } =
-    useEditPerson(person);
+    usePersonForm();
   return (
     <>
       <Button
         isIconOnly
-        startContent={<FaEdit size={18} fill="#979797"/>}
+        startContent={<FaPlus size={18} fill="#979797"/>}
         variant="light"
         color="default"
         onPress={handleOpen}
@@ -35,7 +29,7 @@ const EditPerson = ({ person }: Props) => {
           {(onClose) => (
             <form onSubmit={formik.handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Edit A Person
+                Add A Person
               </ModalHeader>
               <ModalBody>
                 <Input
@@ -85,7 +79,7 @@ const EditPerson = ({ person }: Props) => {
                   Cancel
                 </Button>
                 <Button isLoading={loading} color="primary" type="submit">
-                  Edit
+                  Submit
                 </Button>
               </ModalFooter>
             </form>
@@ -96,4 +90,4 @@ const EditPerson = ({ person }: Props) => {
   );
 };
 
-export default EditPerson;
+export default AddPerson;
