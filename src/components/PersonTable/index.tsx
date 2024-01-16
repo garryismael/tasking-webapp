@@ -16,12 +16,14 @@ import React, { useMemo, useState } from "react";
 import PersonRenderCell from "./PersonRenderCell";
 import { SearchIcon } from "../icons/SearchIcon";
 import AddPerson from "./AddPerson";
+import { usePersonList } from "@/hooks/use-person";
 
 export type PersonTableProps = {
   persons: Person[];
 };
 
-export const PersonTable = ({ persons }: PersonTableProps) => {
+export const PersonTable = ({ persons: users }: PersonTableProps) => {
+  const persons = usePersonList(users);
   const [filterValue, setFilterValue] = React.useState("");
   const hasSearchFilter = Boolean(filterValue);
 
